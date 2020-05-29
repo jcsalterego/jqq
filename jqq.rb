@@ -80,7 +80,7 @@ def curses_main(argv)
 
   running = true
   while running do
-    reeval = false
+    render = false
     begin
       key = expr_win.getch
 
@@ -94,14 +94,20 @@ def curses_main(argv)
         expr = ""
         print_expr(expr_win, expr)
         expr_win.refresh
+      when 410 # resize
+        render = true
       when 10 # enter
+        render = true
+      else
+        expr += key.chr
+        print_expr(expr_win, expr)
+      end
+
+      if render
         print_title(title_win, file)
         print_expr(expr_win, expr)
         print_output(output_win, expr, file, :max_lines=>Curses.lines)
         expr_win.refresh
-      else
-        expr += key.chr
-        print_expr(expr_win, expr)
       end
     rescue Interrupt => e
       break
