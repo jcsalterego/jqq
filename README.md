@@ -23,6 +23,7 @@ jqq . test.json
 
 * stdin support
 * rewrite in another language
+* colors!
 
 ## License
 
