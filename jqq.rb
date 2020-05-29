@@ -15,14 +15,22 @@ def draw_input(win, expr)
   win.addstr(expr)
 end
 
-def jq(*args)
-  params = ["jq"] + args
-  stdout, stderr, status = Open3.capture3(*params)
+def jq(args, opts={})
+  cmds = [
+    ["jq"] + args,
+    ["head", "-n", opts[:max_lines].to_s],
+  ]
+
+  io_read, io_write = IO.pipe
+  statuses = Open3.pipeline(*cmds,
+    :in=>io_read, :out=>io_write, :err=>io_write)
+  io_write.close
+  output = io_read.read
+  exitstatus = statuses[0].exitstatus
 
   {
-    :stdout => stdout,
-    :stderr => stderr,
-    :status => status,
+    :output => output,
+    :exitstatus => exitstatus,
   }
 end
 
@@ -38,15 +46,11 @@ def print_expr(expr_win, expr)
   expr_win.refresh
 end
 
-def print_output(output_win, expr, file)
-  results = jq(expr, file)
+def print_output(output_win, expr, file, opts={})
+  results = jq([expr, file], :max_lines=>opts[:max_lines])
   output_win.clear
   output_win.setpos(0, 0)
-  if results[:status].exitstatus == 0
-    output_win.addstr(results[:stdout])
-  else
-    output_win.addstr(results[:stderr])
-  end
+  output_win.addstr(results[:output])
   output_win.refresh
 end
 
@@ -77,7 +81,7 @@ def curses_main(argv)
 
   print_title(title_win, file)
   print_expr(expr_win, expr)
-  print_output(output_win, expr, file)
+  print_output(output_win, expr, file, :max_lines=>Curses.lines)
   expr_win.refresh
 
   running = true
@@ -99,7 +103,7 @@ def curses_main(argv)
       when 10 # enter
         print_title(title_win, file)
         print_expr(expr_win, expr)
-        print_output(output_win, expr, file)
+        print_output(output_win, expr, file, :max_lines=>Curses.lines)
         expr_win.refresh
       else
         expr += key.chr
