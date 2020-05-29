@@ -102,7 +102,7 @@ def curses_main(argv)
 
   running = true
   while running do
-    render = false
+    should_render = false
     should_echo = false
 
     begin
@@ -167,11 +167,11 @@ def curses_main(argv)
           expr_pos = 0
           should_echo = true
         when KEY_ENTER
-          render = true
+          should_render = true
         when KEY_ESCAPE
           escape_mode = true
         when KEY_WINDOW_RESIZE
-          render = true
+          should_render = true
         else
           # add character at expr_pos
           expr = expr[0...expr_pos] + key.chr + expr[expr_pos..-1]
@@ -180,14 +180,12 @@ def curses_main(argv)
         end
       end
 
-      if should_echo
-        print_expr(expr_win, expr, expr_pos)
-        expr_win.refresh
-      end
-      if render
-        print_title(title_win, file)
+      if should_render
         print_expr(expr_win, expr, expr_pos)
         print_output(output_win, expr, file, :max_lines=>Curses.lines)
+        expr_win.refresh
+      elsif should_echo
+        print_expr(expr_win, expr, expr_pos)
         expr_win.refresh
       end
     rescue Interrupt => e
