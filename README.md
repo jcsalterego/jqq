@@ -1,6 +1,6 @@
 # jqq
 
-jq Querier
+jq Querier: an interactive wrapper around `jq`
 
 ## Requirements
 
