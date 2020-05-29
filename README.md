@@ -21,11 +21,9 @@ alias jqq="/path/to/jqq.rb"
 Usage: jqq <expr> <file>
 ```
 
-## Example
+## Demo
 
-```
-jqq . test.json
-```
+![](demo.gif)
 
 ## Keybindings
 
