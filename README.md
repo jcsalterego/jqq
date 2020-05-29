@@ -21,6 +21,7 @@ jqq . test.json
 
 ## Future Work
 
+* window resize support
 * stdin support
 * rewrite in another language
 * colors!
