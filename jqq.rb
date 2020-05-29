@@ -154,7 +154,10 @@ def curses_main(argv)
           expr_pos = 0
           should_echo = true
         when KEY_CTRL_D
-          running = false
+          if expr_pos < expr.size
+            expr = expr[0...expr_pos] + expr[(expr_pos + 1)..-1]
+            should_echo = true
+          end
         when KEY_CTRL_E
           expr_pos = expr.size
           should_echo = true
