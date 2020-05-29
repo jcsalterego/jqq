@@ -173,6 +173,16 @@ def preflight_check(argv)
   end
 end
 
+def print_helpful_command(expr, file)
+  if /[ \[\]]/.match(expr)
+    full_expr = "'%s'" % [expr]
+  else
+    full_expr = expr
+  end
+
+  puts "jqq #{full_expr} #{file}"
+end
+
 def main(argv)
   preflight_check(argv)
 
@@ -183,7 +193,7 @@ def main(argv)
     Curses.close_screen
   end
 
-  puts "jqq #{state[:expr]} #{state[:file]}"
+  print_helpful_command(state[:expr], state[:file])
 end
 
 if __FILE__ == $0
