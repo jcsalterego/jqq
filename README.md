@@ -33,6 +33,7 @@ jqq uses readline-like keybindings:
 
 | Keybinding | Action |
 | ---------- | ------ |
+| Enter | re-evaluate expression |
 | `ctrl-a` | goto beginning of line |
 | `ctrl-e` | goto end of line |
 | `ctrl-k` | kill line (delete to end of line) |
