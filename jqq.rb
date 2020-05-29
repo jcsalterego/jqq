@@ -9,6 +9,12 @@ FILE_Y = 0
 EXPR_Y = 1
 OUTPUT_Y = 2
 
+KEY_BACKSPACE = 127
+KEY_CTRL_D = 4
+KEY_CTRL_U = 21
+KEY_ENTER = 10
+KEY_WINDOW_RESIZE = 410
+
 def jq(args, opts={})
   cmds = [
     ["jq"] + args,
@@ -85,18 +91,18 @@ def curses_main(argv)
       key = expr_win.getch
 
       case key
-      when 127 # backspace
+      when KEY_BACKSPACE
         expr = expr[0..-2]
         print_expr(expr_win, expr)
-      when 4 # ^D
+      when KEY_CTRL_D
         running = false
-      when 21 # ^U
+      when KEY_CTRL_U
         expr = ""
         print_expr(expr_win, expr)
         expr_win.refresh
-      when 410 # resize
+      when KEY_ENTER
         render = true
-      when 10 # enter
+      when KEY_WINDOW_RESIZE
         render = true
       else
         expr += key.chr
