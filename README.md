@@ -9,7 +9,9 @@ jq Querier: an interactive wrapper around `jq`
 
 ## Installation
 
-Clone the repository and add a nice alias to your `~/.profile` or equivalent:
+* Clone this repository
+* `bundle install`
+* Optionally: add a nice alias to your `~/.profile` or equivalent:
 
 ```
 alias jqq="/path/to/jqq.rb"
