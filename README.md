@@ -5,7 +5,7 @@ jq Querier: an interactive wrapper around `jq`
 ## Requirements
 
 * [jq](https://github.com/stedolan/jq)
-* Modern-ish ruby
+* Modern-ish Ruby and [Bundler](https://bundler.io)
 
 ## Installation
 
