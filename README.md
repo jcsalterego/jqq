@@ -16,8 +16,25 @@ alias jqq="/path/to/jqq.rb"
 ## Usage
 
 ```
+Usage: jqq <expr> <file>
+```
+
+## Example
+
+```
 jqq . test.json
 ```
+
+## Keybindings
+
+jqq uses readline-like keybindings:
+
+| Keybinding | Action |
+| ---------- | ------ |
+| `ctrl-a` | goto beginning of line |
+| `ctrl-e` | goto end of line |
+| `ctrl-k` | kill line (delete to end of line) |
+| `ctrl-d` | delete next character |
 
 ## Future Work
 
@@ -28,4 +45,4 @@ jqq . test.json
 
 ## License
 
-[2-Clause BSD](LICENSE)
+[BSD](LICENSE)
