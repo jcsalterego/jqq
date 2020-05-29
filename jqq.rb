@@ -9,12 +9,6 @@ FILE_Y = 0
 EXPR_Y = 1
 OUTPUT_Y = 2
 
-def draw_input(win, expr)
-  win.setpos(EXPR_Y, 0)
-  win.clrtoeol
-  win.addstr(expr)
-end
-
 def jq(args, opts={})
   cmds = [
     ["jq"] + args,
